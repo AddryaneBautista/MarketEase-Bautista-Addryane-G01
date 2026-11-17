@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>My Profile</h2>
+<p>Username: {{ user.username }}<br>Role: {{ user.get_role_display }}</p>
+<form method="post">
+  {% csrf_token %}{{ form.as_p }}
+  <button type="submit">Save</button>
+</form>
+{% endblock %}
