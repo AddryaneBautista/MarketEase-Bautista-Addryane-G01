@@ -11,6 +11,14 @@
 </head>
 <body>
   <main>
+    {% if user.is_authenticated %}
+      <div class="container pt-3 text-start">
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>
+        </form>
+      </div>
+    {% endif %}
     <div class="container pt-3">
       {% if messages %}
         {% for message in messages %}
