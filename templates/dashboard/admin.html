@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>Admin Dashboard</h2>
-<ul><li><a href="{% url 'admin:index' %}">Manage users and roles</a></li></ul>
+<div class="container py-4">
+  <h2 class="mb-4">Admin Dashboard</h2>
+  <div class="list-group">
+    <a href="{% url 'admin:index' %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+      Manage users and roles <i class="bi bi-chevron-right"></i>
+    </a>
+  </div>
+</div>
 {% endblock %}
