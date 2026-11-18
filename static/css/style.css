@@ -1,10 +1,13 @@
 :root {
   --color-primary: #174c38;
   --color-primary-hover: #1c553a;
+  --color-accent: #246b4a;
   --color-text: #26332c;
   --color-muted: #6c757d;
   --color-background: #f5f7f6;
   --color-border: #dee5e0;
+  --bs-link-color-rgb: 23, 76, 56;
+  --bs-link-hover-color-rgb: 28, 85, 58;
 }
 
 body {
@@ -13,95 +16,12 @@ body {
   color: var(--color-text);
 }
 
-/* Navbar */
-
-.navbar-market {
-  background-color: var(--color-primary);
-  padding: 0.9rem 0;
+.card {
+  border-color: var(--color-border);
 }
-
-.navbar-brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  color: #fff;
-  font-size: 1.35rem;
-  font-weight: 700;
-}
-
-.navbar-brand:hover {
-  color: #fff;
-}
-
-.brand-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  background-color: rgba(255, 255, 255, 0.12);
-  border-radius: 9px;
-  color: #fff;
-}
-
-.brand-highlight {
-  color: #a9d5b8;
-  margin-left: -0.6rem;
-}
-
-.navbar-market .nav-link {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 0.9rem;
-  font-weight: 500;
-  padding: 0.55rem 0.8rem;
-  transition: color 0.2s ease;
-}
-
-.navbar-market .nav-link:hover {
-  color: #fff;
-}
-
-.nav-user {
-  color: #c9dfd1;
-  font-size: 0.85rem;
-  padding: 0 0.5rem;
-}
-
-.btn-signup {
-  background-color: #fff;
-  color: var(--color-primary);
-  font-size: 0.9rem;
-  font-weight: 600;
-  padding: 0.55rem 1rem;
-  border: 1px solid #fff;
-  border-radius: 6px;
-  transition: background-color 0.2s ease;
-}
-
-.btn-signup:hover {
-  background-color: #e8f1eb;
-  color: var(--color-primary);
-}
-
-.btn-logout {
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  font-size: 0.85rem;
-  padding: 0.45rem 0.85rem;
-  border-radius: 6px;
-  transition: background-color 0.2s ease;
-}
-
-.btn-logout:hover {
-  background-color: rgba(255, 255, 255, 0.12);
-  border-color: #fff;
-  color: #fff;
-}
-
-/* Authentication */
 
 .auth-container {
-  min-height: calc(100vh - 66px);
+  min-height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -111,9 +31,6 @@ body {
 .auth-card {
   width: 100%;
   max-width: 440px;
-  border: 1px solid var(--color-border);
-  border-radius: 10px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
 }
 
 .auth-title {
@@ -127,41 +44,44 @@ body {
   margin-bottom: 1.75rem;
 }
 
-/* Django form fields */
-
-.auth-card form p {
-  margin-bottom: 1.2rem;
+.auth-card form p,
+.form-card form p {
+  margin-bottom: 1rem;
 }
 
-.auth-card form label {
+.auth-card form label,
+.form-card form label {
   display: block;
   font-size: 0.9rem;
   font-weight: 500;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
 }
 
-.auth-card form input:not([type="checkbox"]) {
+.auth-card form input:not([type="checkbox"]),
+.form-card form input:not([type="checkbox"]) {
   width: 100%;
-  padding: 0.7rem 0.85rem;
+  padding: 0.6rem 0.8rem;
   border: 1px solid var(--color-border);
   border-radius: 6px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.auth-card form input:focus {
+.auth-card form input:focus,
+.form-card form input:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(36, 107, 74, 0.12);
+  box-shadow: 0 0 0 3px rgba(36, 107, 74, 0.15);
 }
 
-.auth-card form ul.errorlist {
+.auth-card form ul.errorlist,
+.form-card form ul.errorlist {
   color: #dc3545;
   font-size: 0.85rem;
   padding-left: 1.2rem;
   margin-top: 0.4rem;
 }
 
-.auth-card form .helptext {
+.auth-card form .helptext,
+.form-card form .helptext {
   display: block;
   color: var(--color-muted);
   font-size: 0.8rem;
@@ -169,12 +89,10 @@ body {
 }
 
 .btn-market {
-  background-color: #246b4a;
+  background-color: var(--color-accent);
   color: #fff;
   border: none;
-  padding: 0.7rem 1rem;
   font-weight: 500;
-  transition: background-color 0.2s ease;
 }
 
 .btn-market:hover {
@@ -197,27 +115,4 @@ body {
 
 .auth-footer a:hover {
   text-decoration: underline;
-}
-
-/* Responsive */
-
-@media (max-width: 991.98px) {
-  .navbar-nav {
-    align-items: stretch !important;
-    padding-top: 1rem;
-  }
-
-  .nav-user {
-    padding: 0.5rem 0.8rem;
-  }
-
-  .btn-signup,
-  .btn-logout {
-    display: inline-block;
-    margin-top: 0.5rem;
-  }
-
-  .navbar-nav form {
-    padding: 0 0.8rem;
-  }
 }
