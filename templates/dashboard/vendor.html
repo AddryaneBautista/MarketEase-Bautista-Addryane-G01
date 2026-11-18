@@ -3,5 +3,10 @@
 <div class="container py-4">
   <h2 class="mb-3">Vendor Dashboard</h2>
   <p class="text-muted">View your agreements and payment history.</p>
+  <div class="list-group">
+    <a href="{% url 'agreements:list' %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+      My agreements <i class="bi bi-chevron-right"></i>
+    </a>
+  </div>
 </div>
 {% endblock %}
