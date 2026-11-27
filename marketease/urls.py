@@ -25,5 +25,7 @@ urlpatterns = [
     path("agreements/", include("agreements.urls")),
     path("locations/", include("locations.urls")),
     path("stall-types/", include("stall_types.urls")),
+    path("sections/", include("sections.urls")),
+    path("stalls/", include("stalls.urls")),
     path("", include("dashboard.urls")),
 ]
