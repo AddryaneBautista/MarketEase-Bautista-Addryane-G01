@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "stall_types",
     "sections",
     "stalls",
+    "vendors",
 ]
 
 MIDDLEWARE = [
