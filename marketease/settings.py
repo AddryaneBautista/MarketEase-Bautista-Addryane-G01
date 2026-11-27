@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     "agreements",
     "dashboard",
     "locations",
+    "stall_types",
+    "sections",
+    "stalls",
     "vendors",
 ]
 
