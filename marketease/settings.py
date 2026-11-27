@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "agreements",
     "dashboard",
     "locations",
+    "vendors",
 ]
 
 MIDDLEWARE = [
