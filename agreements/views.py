@@ -32,6 +32,7 @@ class AgreementListView(LoginRequiredMixin, ListView):
     paginate_by = 10
 
     def get_queryset(self):
+        RentalAgreement.expire_past_due()
         qs = visible_agreements(self.request.user)
         status, q = self.request.GET.get("status"), self.request.GET.get("q")
         if status:
