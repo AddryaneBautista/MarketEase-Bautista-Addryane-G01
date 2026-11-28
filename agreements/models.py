@@ -1,8 +1,9 @@
 from django.conf import settings
-from django.db import models
+from django.db import models, transaction
 from django.db.models import F, Q
+from django.utils import timezone
 
-# Create your models here.
+
 class Location(models.Model):
     name = models.CharField(max_length=100, unique=True)
     description = models.CharField(max_length=255, blank=True)
@@ -102,6 +103,16 @@ class RentalAgreement(models.Model):
                 fields=["stall"], condition=Q(status="ACTIVE"), name="uq_one_active_per_stall",
             ),
         ]
+
+    @classmethod
+    def expire_past_due(cls, today=None):
+        today = today or timezone.localdate()
+        with transaction.atomic():
+            qs = cls.objects.filter(status=cls.ACTIVE, end_date__lt=today)
+            stall_ids = list(qs.values_list("stall_id", flat=True))
+            count = qs.update(status=cls.EXPIRED)
+            Stall.objects.filter(pk__in=stall_ids, status=Stall.OCCUPIED).update(status=Stall.AVAILABLE)
+        return count
 
     def __str__(self):
         return f"Agreement #{self.pk}: {self.vendor} - {self.stall}"
