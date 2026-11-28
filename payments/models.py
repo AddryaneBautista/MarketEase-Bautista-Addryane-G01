@@ -10,8 +10,8 @@ class Payment(models.Model):
     OVERDUE = "OVERDUE"
     STATUS_CHOICES = [(PAID, "Paid"), (PARTIAL, "Partial"), (OVERDUE, "Overdue")]
 
-    rental_agreement = models.ForeignKey(
-        "agreements.RentalAgreement", on_delete=models.PROTECT, related_name="payments",
+    agreement = models.ForeignKey(
+        "agreements.Agreement", on_delete=models.PROTECT, related_name="payments",
     )
     received_by = models.ForeignKey(
         settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL,
@@ -27,7 +27,7 @@ class Payment(models.Model):
     class Meta:
         ordering = ["-billing_month", "-pk"]
         constraints = [
-            models.UniqueConstraint(fields=["rental_agreement", "billing_month"],
+            models.UniqueConstraint(fields=["agreement", "billing_month"],
                                     name="uq_payment_agreement_month"),
             models.CheckConstraint(condition=Q(amount_due__gt=0), name="ck_pay_due_pos"),
             models.CheckConstraint(condition=Q(amount_paid__gte=0), name="ck_pay_paid_nonneg"),
@@ -36,7 +36,7 @@ class Payment(models.Model):
         ]
 
     def __str__(self):
-        return f"Payment #{self.pk} - {self.rental_agreement} ({self.billing_month:%b %Y})"
+        return f"Payment #{self.pk} - {self.agreement} ({self.billing_month:%b %Y})"
 
     def compute_status(self, today=None):
         today = today or timezone.localdate()

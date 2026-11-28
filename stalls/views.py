@@ -1,6 +1,3 @@
-from django.shortcuts import render
-
-# Create your views here.
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -10,8 +7,10 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 from accounts.models import CustomUser
-from agreements.models import Section, Stall, StallType
+from sections.models import Section
+from stall_types.models import StallType
 from .forms import StallForm
+from .models import Stall
 
 Role = CustomUser.Role
 MANAGER_ROLES = (Role.ADMIN, Role.STAFF)

@@ -3,7 +3,9 @@ from django.db.models import Count, Q, Sum
 from django.views.generic import TemplateView
 
 from accounts.models import CustomUser
-from agreements.models import Section, Stall, Vendor
+from sections.models import Section
+from stalls.models import Stall
+from vendors.models import Vendor
 from payments.models import Payment
 
 Role = CustomUser.Role
@@ -60,9 +62,9 @@ class PaymentReportView(StaffRequiredMixin, TemplateView):
         ctx = super().get_context_data(**kwargs)
         monthly = _summarize(["billing_month"])
         vendors = _summarize([
-            "rental_agreement__vendor__last_name",
-            "rental_agreement__vendor__first_name",
-            "rental_agreement__vendor_id",
+            "agreement__vendor__last_name",
+            "agreement__vendor__first_name",
+            "agreement__vendor_id",
         ])
         due = sum(r["due"] for r in monthly)
         paid = sum(r["paid"] for r in monthly)

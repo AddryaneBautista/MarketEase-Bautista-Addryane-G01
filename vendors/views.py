@@ -7,8 +7,8 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 from accounts.models import CustomUser
-from agreements.models import Vendor
 from .forms import VendorForm
+from .models import Vendor
 
 Role = CustomUser.Role
 MANAGER_ROLES = (Role.ADMIN, Role.STAFF)

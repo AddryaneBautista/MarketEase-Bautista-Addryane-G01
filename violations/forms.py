@@ -1,7 +1,7 @@
 from django import forms
 from django.db.models import Q
 
-from agreements.models import Vendor
+from vendors.models import Vendor
 from .models import Violation
 
 

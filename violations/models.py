@@ -8,8 +8,8 @@ class Violation(models.Model):
     RESOLVED = "RESOLVED"
     STATUS_CHOICES = [(OPEN, "Open"), (RESOLVED, "Resolved")]
 
-    vendor = models.ForeignKey("agreements.Vendor", on_delete=models.PROTECT, related_name="violations")
-    stall = models.ForeignKey("agreements.Stall", on_delete=models.PROTECT, related_name="violations")
+    vendor = models.ForeignKey("vendors.Vendor", on_delete=models.PROTECT, related_name="violations")
+    stall = models.ForeignKey("stalls.Stall", on_delete=models.PROTECT, related_name="violations")
     inspection = models.ForeignKey("inspections.Inspection", null=True, blank=True,
                                    on_delete=models.PROTECT, related_name="violations")
     description = models.CharField(max_length=255)

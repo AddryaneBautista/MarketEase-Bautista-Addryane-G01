@@ -2,7 +2,7 @@ from django import forms
 from django.db.models import Q
 
 from accounts.models import CustomUser
-from agreements.models import Vendor
+from .models import Vendor
 
 
 class VendorForm(forms.ModelForm):

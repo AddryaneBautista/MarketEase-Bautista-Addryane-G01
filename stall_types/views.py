@@ -7,8 +7,8 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 from accounts.models import CustomUser
-from agreements.models import StallType
 from .forms import StallTypeForm
+from .models import StallType
 
 Role = CustomUser.Role
 MANAGER_ROLES = (Role.ADMIN, Role.STAFF)

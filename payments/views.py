@@ -26,15 +26,15 @@ class PaymentListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         Payment.refresh_overdue()
-        qs = Payment.objects.select_related("rental_agreement__vendor", "rental_agreement__stall")
+        qs = Payment.objects.select_related("agreement__vendor", "agreement__stall")
         if self.request.user.role not in MANAGER_ROLES:
-            qs = qs.filter(rental_agreement__vendor__user=self.request.user)
+            qs = qs.filter(agreement__vendor__user=self.request.user)
         q = self.request.GET.get("q", "").strip()
         status = self.request.GET.get("status", "")
         if q:
-            qs = qs.filter(Q(rental_agreement__vendor__first_name__icontains=q)
-                           | Q(rental_agreement__vendor__last_name__icontains=q)
-                           | Q(rental_agreement__stall__stall_number__icontains=q))
+            qs = qs.filter(Q(agreement__vendor__first_name__icontains=q)
+                           | Q(agreement__vendor__last_name__icontains=q)
+                           | Q(agreement__stall__stall_number__icontains=q))
         if status:
             qs = qs.filter(status=status)
         return qs

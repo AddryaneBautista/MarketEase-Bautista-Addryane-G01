@@ -1,5 +1,5 @@
 from django import forms
-from agreements.models import Section
+from .models import Section
 
 
 class SectionForm(forms.ModelForm):

@@ -21,7 +21,7 @@
       <tbody>
       {% for p in payments %}
         <tr>
-          <td>{{ p.rental_agreement.vendor }}</td><td>{{ p.rental_agreement.stall }}</td>
+          <td>{{ p.agreement.vendor }}</td><td>{{ p.agreement.stall }}</td>
           <td>{{ p.billing_month|date:"M Y" }}</td><td>{{ p.due_date }}</td>
           <td>{{ p.amount_due }}</td><td>{{ p.amount_paid }}</td><td>{{ p.get_status_display }}</td>
           <td class="text-end">

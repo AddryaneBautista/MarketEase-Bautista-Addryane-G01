@@ -1,5 +1,5 @@
 from django import forms
-from agreements.models import Location
+from .models import Location
 
 
 class LocationForm(forms.ModelForm):

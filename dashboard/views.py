@@ -1,10 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse
 from django.views.generic import RedirectView, TemplateView
+
 from accounts.models import CustomUser
 
-# Create your views here.
 Role = CustomUser.Role
+
 
 class RoleDashboardView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     role = None

@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.db import transaction
 from django.db.models import Q
 
-from agreements.models import Vendor
+from vendors.models import Vendor
 from .models import CustomUser
 
 

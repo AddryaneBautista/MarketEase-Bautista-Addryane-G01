@@ -1,5 +1,5 @@
 from django import forms
-from agreements.models import Stall
+from .models import Stall
 
 
 class StallForm(forms.ModelForm):

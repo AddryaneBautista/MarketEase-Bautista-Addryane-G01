@@ -2,14 +2,14 @@ from django import forms
 from django.db.models import Q
 from django.utils import timezone
 
-from agreements.models import RentalAgreement
+from agreements.models import Agreement
 from .models import Payment
 
 
 class PaymentForm(forms.ModelForm):
     class Meta:
         model = Payment
-        fields = ["rental_agreement", "billing_month", "due_date",
+        fields = ["agreement", "billing_month", "due_date",
                   "payment_date", "amount_due", "amount_paid"]
         widgets = {
             "billing_month": forms.DateInput(attrs={"type": "date"}),
@@ -19,11 +19,11 @@ class PaymentForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        q = Q(status=RentalAgreement.ACTIVE)
+        q = Q(status=Agreement.ACTIVE)
         if self.instance.pk:
-            q |= Q(pk=self.instance.rental_agreement_id)
-        self.fields["rental_agreement"].queryset = (
-            RentalAgreement.objects.filter(q).select_related("vendor", "stall")
+            q |= Q(pk=self.instance.agreement_id)
+        self.fields["agreement"].queryset = (
+            Agreement.objects.filter(q).select_related("vendor", "stall")
         )
         self.fields["billing_month"].help_text = "Normalized to the first day of the month."
         self.fields["amount_paid"].initial = 0

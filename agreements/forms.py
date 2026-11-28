@@ -2,11 +2,14 @@ from django import forms
 from django.db import transaction
 from django.db.models import Q
 
-from .models import RentalAgreement, Stall, Vendor
+from stalls.models import Stall
+from vendors.models import Vendor
+from .models import Agreement
 
-class RentalAgreementForm(forms.ModelForm):
+
+class AgreementForm(forms.ModelForm):
     class Meta:
-        model = RentalAgreement
+        model = Agreement
         fields = ["vendor", "stall", "start_date", "end_date", "monthly_rate", "status"]
         widgets = {
             "start_date": forms.DateInput(attrs={"type": "date"}),
@@ -31,11 +34,11 @@ class RentalAgreementForm(forms.ModelForm):
             self.add_error("end_date", "End date must be later than the start date.")
         if rate is not None and rate <= 0:
             self.add_error("monthly_rate", "Monthly rate must be greater than zero.")
-        if stall and status == RentalAgreement.ACTIVE:
+        if stall and status == Agreement.ACTIVE:
             if stall.status == Stall.MAINTENANCE:
                 self.add_error("stall", "This stall is under maintenance.")
-            elif (RentalAgreement.objects
-                  .filter(stall=stall, status=RentalAgreement.ACTIVE)
+            elif (Agreement.objects
+                  .filter(stall=stall, status=Agreement.ACTIVE)
                   .exclude(pk=self.instance.pk).exists()):
                 self.add_error("stall", "This stall already has an active agreement.")
         return cleaned
@@ -48,7 +51,7 @@ class RentalAgreementForm(forms.ModelForm):
             Stall.objects.filter(pk=self._old_stall_id, status=Stall.OCCUPIED) \
                 .update(status=Stall.AVAILABLE)
         stall = agreement.stall
-        if agreement.status == RentalAgreement.ACTIVE:
+        if agreement.status == Agreement.ACTIVE:
             stall.status = Stall.OCCUPIED
             stall.save(update_fields=["status"])
         elif stall.status == Stall.OCCUPIED:

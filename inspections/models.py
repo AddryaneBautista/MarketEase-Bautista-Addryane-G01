@@ -10,7 +10,7 @@ class Inspection(models.Model):
     FOLLOW_UP = "NEEDS_FOLLOW_UP"
     RESULT_CHOICES = [(PASSED, "Passed"), (FAILED, "Failed"), (FOLLOW_UP, "Needs follow-up")]
 
-    stall = models.ForeignKey("agreements.Stall", on_delete=models.PROTECT, related_name="inspections")
+    stall = models.ForeignKey("stalls.Stall", on_delete=models.PROTECT, related_name="inspections")
     inspector = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT,
                                   related_name="inspections_conducted")
     inspection_date = models.DateField(default=timezone.localdate)

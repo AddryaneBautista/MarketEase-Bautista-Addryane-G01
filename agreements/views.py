@@ -7,15 +7,16 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
 
 from accounts.models import CustomUser
-from .forms import RentalAgreementForm
-from .models import RentalAgreement, Stall
+from stalls.models import Stall
+from .forms import AgreementForm
+from .models import Agreement
 
-# Create your views here.
 Role = CustomUser.Role
 MANAGER_ROLES = (Role.ADMIN, Role.STAFF)
 
+
 def visible_agreements(user):
-    qs = RentalAgreement.objects.select_related("vendor", "stall", "stall__section", "created_by")
+    qs = Agreement.objects.select_related("vendor", "stall", "stall__section", "created_by")
     if user.role in MANAGER_ROLES:
         return qs
     return qs.filter(vendor__user=user)
@@ -46,7 +47,7 @@ class AgreementListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        ctx["statuses"] = RentalAgreement.STATUS_CHOICES
+        ctx["statuses"] = Agreement.STATUS_CHOICES
         ctx["can_manage"] = self.request.user.role in MANAGER_ROLES
         return ctx
 
@@ -60,7 +61,7 @@ class AgreementDetailView(LoginRequiredMixin, DetailView):
 
 
 class AgreementCreateView(StaffRequiredMixin, CreateView):
-    form_class = RentalAgreementForm
+    form_class = AgreementForm
     template_name = "agreements/agreement_form.html"
     success_url = reverse_lazy("agreements:list")
 
@@ -75,8 +76,8 @@ class AgreementCreateView(StaffRequiredMixin, CreateView):
 
 
 class AgreementUpdateView(StaffRequiredMixin, UpdateView):
-    model = RentalAgreement
-    form_class = RentalAgreementForm
+    model = Agreement
+    form_class = AgreementForm
     template_name = "agreements/agreement_form.html"
     success_url = reverse_lazy("agreements:list")
 
@@ -90,7 +91,7 @@ class AgreementUpdateView(StaffRequiredMixin, UpdateView):
 
 
 class AgreementDeleteView(StaffRequiredMixin, DeleteView):
-    model = RentalAgreement
+    model = Agreement
     template_name = "agreements/agreement_confirm_delete.html"
     success_url = reverse_lazy("agreements:list")
 
@@ -99,7 +100,7 @@ class AgreementDeleteView(StaffRequiredMixin, DeleteView):
         try:
             with transaction.atomic():
                 stall_id = agreement.stall_id
-                was_active = agreement.status == RentalAgreement.ACTIVE
+                was_active = agreement.status == Agreement.ACTIVE
                 agreement.delete()
                 if was_active:
                     Stall.objects.filter(pk=stall_id, status=Stall.OCCUPIED) \
