@@ -40,6 +40,15 @@ INSTALLED_APPS = [
     "accounts",
     "agreements",
     "dashboard",
+    "locations",
+    "stall_types",
+    "sections",
+    "stalls",
+    "vendors",
+    "payments",
+    "inspections",
+    "violations",
+    "reports",
 ]
 
 MIDDLEWARE = [
