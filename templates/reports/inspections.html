@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Inspection and Violation Report</h2>
+    <a href="{% url 'reports:index' %}" class="btn btn-outline-secondary btn-sm">Back</a>
+  </div>
+
+  <h5>Per section</h5>
+  <div class="card mb-4"><div class="table-responsive">
+    <table class="table mb-0">
+      <thead><tr><th>Location</th><th>Section</th><th>Inspections</th><th>Failed</th><th>Violations</th></tr></thead>
+      <tbody>
+      {% for s in sections %}
+        <tr><td>{{ s.location.name }}</td><td>{{ s.name }}</td><td>{{ s.inspection_count }}</td><td>{{ s.failed_count }}</td><td>{{ s.violation_count }}</td></tr>
+      {% empty %}
+        <tr><td colspan="5" class="text-center text-muted py-4">No sections.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div></div>
+
+  <h5>Per stall</h5>
+  <div class="card mb-4"><div class="table-responsive">
+    <table class="table mb-0">
+      <thead><tr><th>Stall</th><th>Section</th><th>Inspections</th><th>Failed</th><th>Violations</th></tr></thead>
+      <tbody>
+      {% for s in stalls %}
+        <tr><td>{{ s.stall_number }}</td><td>{{ s.section.name }}</td><td>{{ s.inspection_count }}</td><td>{{ s.failed_count }}</td><td>{{ s.violation_count }}</td></tr>
+      {% empty %}
+        <tr><td colspan="5" class="text-center text-muted py-4">No inspections or violations.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div></div>
+
+  <h5>Per vendor</h5>
+  <div class="card"><div class="table-responsive">
+    <table class="table mb-0">
+      <thead><tr><th>Vendor</th><th>Violations</th><th>Open</th><th>Total fines</th></tr></thead>
+      <tbody>
+      {% for v in vendors %}
+        <tr><td>{{ v }}</td><td>{{ v.violation_count }}</td><td>{{ v.open_count }}</td><td>{{ v.fine_total }}</td></tr>
+      {% empty %}
+        <tr><td colspan="4" class="text-center text-muted py-4">No violations.</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div></div>
+</div>
+{% endblock %}

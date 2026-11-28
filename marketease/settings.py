@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     "stalls",
     "vendors",
     "payments",
+    "inspections",
+    "violations",
+    "reports",
 ]
 
 MIDDLEWARE = [
