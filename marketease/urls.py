@@ -27,6 +27,7 @@ urlpatterns = [
     path("stall-types/", include("stall_types.urls")),
     path("sections/", include("sections.urls")),
     path("stalls/", include("stalls.urls")),
-    path("", include("dashboard.urls")),
     path("vendors/", include("vendors.urls")),
+    path("payments/", include("payments.urls")),
+    path("", include("dashboard.urls")),
 ]
