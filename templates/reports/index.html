@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-4">
+  <h2 class="mb-4">Reports</h2>
+  <div class="list-group">
+    <a href="{% url 'reports:occupancy' %}" class="list-group-item list-group-item-action">Stall occupancy report</a>
+    <a href="{% url 'reports:payments' %}" class="list-group-item list-group-item-action">Rental payment report</a>
+    <a href="{% url 'reports:inspections' %}" class="list-group-item list-group-item-action">Inspection and violation report</a>
+  </div>
+</div>
+{% endblock %}
